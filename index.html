@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversor de Números</title>
+</head>
+<body>
+  <h1>Conversor Arábigo ↔ Romano</h1>
+  <input id="numero" type="text" placeholder="Ingresa número o romano">
+  <button onclick="convertir()">Convertir</button>
+  <p id="resultado"></p>
+
+  <script type="module">
+    import { arabigoARomano, romanoAArabigo } from './src/conversor.js';
+
+    function convertir() {
+      const valor = document.getElementById("numero").value;
+      const resultado = document.getElementById("resultado");
+      try {
+        if (/^\d+$/.test(valor)) {
+          resultado.textContent = arabigoARomano(Number(valor));
+        } else {
+          resultado.textContent = romanoAArabigo(valor);
+        }
+      } catch(e) {
+        resultado.textContent = e.message;
+      }
+    }
+
+    window.convertir = convertir;
+  </script>
+</body>
+</html>
