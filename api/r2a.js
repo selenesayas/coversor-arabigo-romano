@@ -1,28 +1,27 @@
 export default function handler(req, res) {
-  const romano = req.query.numero?.toUpperCase();
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
-  if (!romano || !/^[MDCLXVI]+$/.test(romano)) {
+  const { roman } = req.query;
+
+  if (!roman || !/^[IVXLCDM]+$/.test(roman.toUpperCase())) {
     return res.status(400).json({ error: "Romano inválido" });
   }
 
-  const valores = {
-    M: 1000, D: 500, C: 100, L: 50,
-    X: 10, V: 5, I: 1
+  const map = {
+    I: 1, V: 5, X: 10, L: 50,
+    C: 100, D: 500, M: 1000
   };
 
   let total = 0;
+  let prev = 0;
 
-  for (let i = 0; i < romano.length; i++) {
-    const actual = valores[romano[i]];
-    const siguiente = valores[romano[i + 1]];
-
-    if (siguiente && actual < siguiente) {
-      total += siguiente - actual;
-      i++;
-    } else {
-      total += actual;
-    }
+  for (let i = roman.length - 1; i >= 0; i--) {
+    const value = map[roman[i]];
+    if (value < prev) total -= value;
+    else total += value;
+    prev = value;
   }
 
-  res.json({ resultado: total });
+  return res.status(200).json({ arabic: total });
 }
+
