@@ -1,8 +1,7 @@
 {
-  "version": 2,
-  "routes": [
-    { "src": "/a2r", "dest": "/a2r.js" },
-    { "src": "/r2a", "dest": "/r2a.js" }
+  "rewrites": [
+    { "source": "/a2r", "destination": "/api/a2r.js" },
+    { "source": "/r2a", "destination": "/api/r2a.js" }
   ]
 }
 
