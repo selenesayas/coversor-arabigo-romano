@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/a-romano", "destination": "/api/server.js" },
+    { "source": "/a-arabigo", "destination": "/api/server.js" }
+  ]
+}
