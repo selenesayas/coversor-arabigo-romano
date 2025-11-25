@@ -5,7 +5,7 @@
 <title>Conversor Romano ↔ Arábigo</title>
 <style>
     body {
-        font-family: Arial;
+        font-family: Arial, sans-serif;
         background: linear-gradient(135deg, #7ab6ff, #d7c3ff);
         height: 100vh;
         margin: 0;
@@ -38,6 +38,11 @@
         margin-top: 10px;
         cursor: pointer;
     }
+    hr {
+        margin: 20px 0;
+        border: none;
+        border-top: 1px solid #ccc;
+    }
 </style>
 </head>
 <body>
@@ -47,32 +52,3 @@
 
     <h3>De Arábigo a Romano</h3>
     <input id="arabigo" placeholder="Ej: 154">
-    <button onclick="convertirA2R()">Convertir</button>
-    <p id="resultadoA2R"></p>
-
-    <hr>
-
-    <h3>De Romano a Arábigo</h3>
-    <input id="romano" placeholder="Ej: CLIV">
-    <button onclick="convertirR2A()">Convertir</button>
-    <p id="resultadoR2A"></p>
-</div>
-
-<script>
-async function convertirA2R() {
-    const numero = document.getElementById("arabigo").value;
-    const res = await fetch(`/a2r?numero=${numero}`);
-    const data = await res.json();
-    document.getElementById("resultadoA2R").innerHTML = data.resultado || data.error;
-}
-
-async function convertirR2A() {
-    const numero = document.getElementById("romano").value;
-    const res = await fetch(`/r2a?numero=${numero}`);
-    const data = await res.json();
-    document.getElementById("resultadoR2A").innerHTML = data.resultado || data.error;
-}
-</script>
-
-</body>
-</html>
