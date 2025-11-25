@@ -4,99 +4,56 @@
 <meta charset="UTF-8">
 <title>Conversor Romano ↔ Arábigo</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #7ab6ff, #d7c3ff);
-        height: 100vh;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .card {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        width: 400px;
-        text-align: center;
-    }
-    input {
-        width: 90%;
-        padding: 10px;
-        margin: 10px 0;
-        border-radius: 10px;
-        border: 1px solid #aaa;
-        font-size: 16px;
-    }
-    button {
-        padding: 10px 20px;
-        background: #7a4cff;
-        border: none;
-        color: white;
-        border-radius: 10px;
-        margin-top: 10px;
-        cursor: pointer;
-    }
-    hr {
-        margin: 20px 0;
-        border: none;
-        border-top: 1px solid #ccc;
-    }
+    body { font-family: Arial, sans-serif; background: linear-gradient(135deg,#7ab6ff,#d7c3ff); height:100vh; margin:0; display:flex; justify-content:center; align-items:center; }
+    .card { background:white; padding:30px; border-radius:20px; box-shadow:0 5px 20px rgba(0,0,0,0.2); width:400px; text-align:center; }
+    input { width:90%; padding:10px; margin:10px 0; border-radius:10px; border:1px solid #aaa; font-size:16px; }
+    button { padding:10px 20px; background:#7a4cff; border:none; color:white; border-radius:10px; margin-top:10px; cursor:pointer; }
+    hr { margin:20px 0; border:none; border-top:1px solid #ccc; }
 </style>
 </head>
 <body>
-
 <div class="card">
-    <h2>Conversor Romano ↔ Arábigo</h2>
+<h2>Conversor Romano ↔ Arábigo</h2>
 
-    <h3>De Arábigo a Romano</h3>
-    <input id="arabigo" placeholder="Ej: 154">
-    <button onclick="convertirA2R()">Convertir</button>
-    <p id="resultadoA2R"></p>
+<h3>De Arábigo a Romano</h3>
+<input id="arabigo" placeholder="Ej: 154">
+<button onclick="convertirA2R()">Convertir</button>
+<p id="resultadoA2R"></p>
 
-    <hr>
+<hr>
 
-    <h3>De Romano a Arábigo</h3>
-    <input id="romano" placeholder="Ej: CLIV">
-    <button onclick="convertirR2A()">Convertir</button>
-    <p id="resultadoR2A"></p>
+<h3>De Romano a Arábigo</h3>
+<input id="romano" placeholder="Ej: CLIV">
+<button onclick="convertirR2A()">Convertir</button>
+<p id="resultadoR2A"></p>
 </div>
 
 <script>
 async function convertirA2R() {
     const numero = document.getElementById("arabigo").value;
-    if (!numero) {
-        document.getElementById("resultadoA2R").innerHTML = "Ingrese un número válido";
-        return;
-    }
+    if (!numero) { document.getElementById("resultadoA2R").innerHTML="Ingrese un número válido"; return; }
     try {
-        // Fetch a la ruta correcta según vercel.json
-        const res = await fetch(`/a2r?arabic=${numero}`);
+        const res = await fetch(`/api/a2r?arabic=${numero}`);
         const data = await res.json();
         document.getElementById("resultadoA2R").innerHTML = data.roman || data.error;
     } catch (err) {
-        document.getElementById("resultadoA2R").innerHTML = "Error de conexión";
+        document.getElementById("resultadoA2R").innerHTML="Error de conexión";
     }
 }
 
 async function convertirR2A() {
     const numero = document.getElementById("romano").value;
-    if (!numero) {
-        document.getElementById("resultadoR2A").innerHTML = "Ingrese un número romano válido";
-        return;
-    }
+    if (!numero) { document.getElementById("resultadoR2A").innerHTML="Ingrese un número romano válido"; return; }
     try {
-        // Fetch a la ruta correcta según vercel.json
-        const res = await fetch(`/r2a?roman=${numero}`);
+        const res = await fetch(`/api/r2a?roman=${numero}`);
         const data = await res.json();
         document.getElementById("resultadoR2A").innerHTML = data.arabic || data.error;
     } catch (err) {
-        document.getElementById("resultadoR2A").innerHTML = "Error de conexión";
+        document.getElementById("resultadoR2A").innerHTML="Error de conexión";
     }
 }
 </script>
-
 </body>
 </html>
+
 
