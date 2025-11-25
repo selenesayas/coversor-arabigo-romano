@@ -1,3 +1,5 @@
+// src/conversor.js
+
 // Conversión de número arábigo a romano
 export function arabigoARomano(num) {
     if (!Number.isInteger(num) || num <= 0 || num >= 4000) {
@@ -19,18 +21,33 @@ export function arabigoARomano(num) {
 
 // Conversión de número romano a arábigo
 export function romanoAArabigo(romano) {
+    if (typeof romano !== "string" || romano.length === 0) {
+        throw new Error("Número romano inválido");
+    }
+
     const mapa = { I:1, V:5, X:10, L:50, C:100, D:500, M:1000 };
     let total = 0;
     let prev = 0;
 
     for (let i = romano.length - 1; i >= 0; i--) {
-        const valor = mapa[romano[i].toUpperCase()];
-        if (!valor) throw new Error("Número romano inválido");
+        const letra = romano[i].toUpperCase();
+        const valor = mapa[letra];
+
+        if (!valor) {
+            throw new Error("Número romano inválido");
+        }
 
         if (valor < prev) total -= valor;
         else total += valor;
 
         prev = valor;
     }
+
+    if (total <= 0 || total >= 4000) {
+        throw new Error("Número romano fuera de rango (1-3999)");
+    }
+
     return total;
 }
+
+

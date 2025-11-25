@@ -1,7 +1,7 @@
-
+// api/r2a.js
 import { romanoAArabigo } from "../src/conversor.js";
 
-// Función para manejar CORS correctamente
+// Manejo de CORS
 function setCorsHeaders(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
@@ -11,30 +11,19 @@ function setCorsHeaders(res) {
 export default function handler(req, res) {
   setCorsHeaders(res);
 
-  if (req.method === "OPTIONS") {
-    // Respuesta para preflight request
-    return res.status(200).end();
-  }
-
-  if (req.method !== "GET") {
-    return res.status(405).json({ error: "Método no permitido" });
-  }
+  if (req.method === "OPTIONS") return res.status(200).end();
+  if (req.method !== "GET") return res.status(405).json({ error: "Método no permitido" });
 
   const roman = req.query.roman;
-  if (!roman) {
-    return res.status(400).json({ error: "Número romano inválido" });
-  }
+  if (!roman) return res.status(400).json({ error: "Número romano inválido" });
 
   try {
     const arabic = romanoAArabigo(roman);
-    if (!arabic || arabic <= 0) {
-      // Validación extra por si la conversión falla
-      return res.status(400).json({ error: "Número romano inválido" });
-    }
     res.status(200).json({ arabic });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 }
+
 
 

@@ -52,3 +52,48 @@
 
     <h3>De Arábigo a Romano</h3>
     <input id="arabigo" placeholder="Ej: 154">
+    <button onclick="convertirA2R()">Convertir</button>
+    <p id="resultadoA2R"></p>
+
+    <hr>
+
+    <h3>De Romano a Arábigo</h3>
+    <input id="romano" placeholder="Ej: CLIV">
+    <button onclick="convertirR2A()">Convertir</button>
+    <p id="resultadoR2A"></p>
+</div>
+
+<script>
+async function convertirA2R() {
+    const numero = document.getElementById("arabigo").value;
+    if (!numero) {
+        document.getElementById("resultadoA2R").innerHTML = "Ingrese un número válido";
+        return;
+    }
+    try {
+        const res = await fetch(`/api/a2r?arabic=${numero}`);
+        const data = await res.json();
+        document.getElementById("resultadoA2R").innerHTML = data.roman || data.error;
+    } catch (err) {
+        document.getElementById("resultadoA2R").innerHTML = "Error de conexión";
+    }
+}
+
+async function convertirR2A() {
+    const numero = document.getElementById("romano").value;
+    if (!numero) {
+        document.getElementById("resultadoR2A").innerHTML = "Ingrese un número romano válido";
+        return;
+    }
+    try {
+        const res = await fetch(`/api/r2a?roman=${numero}`);
+        const data = await res.json();
+        document.getElementById("resultadoR2A").innerHTML = data.arabic || data.error;
+    } catch (err) {
+        document.getElementById("resultadoR2A").innerHTML = "Error de conexión";
+    }
+}
+</script>
+
+</body>
+</html>
