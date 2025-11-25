@@ -15,7 +15,6 @@ export default function handler(req, res) {
   if (req.method !== "GET") return res.status(405).json({ error: "Método no permitido" });
 
   const arabic = parseInt(req.query.arabic);
-
   if (!arabic || arabic <= 0 || arabic >= 4000) {
     return res.status(400).json({ error: "Número inválido" });
   }
@@ -27,6 +26,7 @@ export default function handler(req, res) {
     res.status(400).json({ error: err.message });
   }
 }
+
 
 
 

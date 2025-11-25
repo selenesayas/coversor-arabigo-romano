@@ -71,7 +71,7 @@ async function convertirA2R() {
         return;
     }
     try {
-        const res = await fetch(`/api/a2r?arabic=${numero}`);
+        const res = await fetch(`/a2r?arabic=${numero}`);
         const data = await res.json();
         document.getElementById("resultadoA2R").innerHTML = data.roman || data.error;
     } catch (err) {
@@ -86,7 +86,7 @@ async function convertirR2A() {
         return;
     }
     try {
-        const res = await fetch(`/api/r2a?roman=${numero}`);
+        const res = await fetch(`/r2a?roman=${numero}`);
         const data = await res.json();
         document.getElementById("resultadoR2A").innerHTML = data.arabic || data.error;
     } catch (err) {
